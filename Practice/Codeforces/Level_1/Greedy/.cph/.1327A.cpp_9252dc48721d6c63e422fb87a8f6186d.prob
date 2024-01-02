@@ -1,0 +1,1 @@
+{"name":"Local: 1327A","url":"d:\\CP\\Practice\\Codeforces\\Level_1\\Greedy\\1327A.cpp","tests":[{"id":1703866773029,"input":"6\n3 1\n4 2\n10 3\n10 2\n16 4\n16 5","output":"YES\nYES\nNO\nYES\nYES\nNO"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\CP\\Practice\\Codeforces\\Level_1\\Greedy\\1327A.cpp","group":"local","local":true}
