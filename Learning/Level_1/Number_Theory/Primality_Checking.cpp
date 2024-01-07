@@ -14,7 +14,7 @@
 
             - Can find all the prime nos upto a given limit in O(log(log N))
 
-            - NOTE (Property of a Composite No): any composite no C, must have a prime factor P, P < C.
+            - NOTE (Property of a Composite No): any composite no C, must have a prime factor P such that P < C.
 
             - Approach: {0,1} are not prime -> so mark them, then find the next unmarked no -> it is a prime, mark at the factors of it bcz they are composite, then again find the next unmarked -> it's a prime, again follow above process.  
                 - Next unmarked no is prime (bcz it doesn't have a prime factor smaller than it, else it'd have gotten marked => so it's a prime no)
