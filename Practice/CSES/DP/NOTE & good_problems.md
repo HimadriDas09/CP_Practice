@@ -1,40 +1,42 @@
-// APPROACH: 
-    - Always draw a recursion tree to know state and transition
-    - direct tabulation approach: 
-    - after know state, transition, bc
-    - move from smaller to larger state: till you've solved the main problem
+**APPROACH to solve any DP problem**
 
-- Define a State: i.e subproblem: can it be unique to define a subproblem ?
-    - eg: dp[no] or dp[ind][tar]
+    - FLOW: State > Transition > Flow of States > BC & finalSubproblem (depends of state definition)
 
-- Define the Transition: i.e how that state related to it's subproblems ?
-    - eg: while(num > 0) {
-            digit = num % 10; num /= 10;
+    - Imagine the brute force approach in your mind.
 
-            min_steps = min(min_steps, dp[no-digit]);
-        }
-        dp[no] = 1 + min_steps
+    - If it seems Greedy -> see for cases when it can go greedily wrong, and if we're to explore all the ways   
 
-- Define the BC(a very small state that can be trivially solved)
-    - eg: dp[0] = 0
+    - See if there is a subproblem you're repeatedly solving
+        - How did you define that subproblem ? -> define a state based on it
 
-// TIME COMPLEXITY:
+            - ONLY WORK ON THE ith STATE -> i.e explore all possible stuffs you can do on the ith STATE && Nothing ELSE, and make the transition equation to depend on the smaller states.
 
--  (# states) * avg transition time of each state
+    - Based on the brute force appraoch: find the TRANSITION, i.e subproblems on which the state depends
 
-/********************* LATER TO SOLVE: ***********************************/
-1. Know why is the code for Coin_Combination 1 and 2 different.
-2. Couldn't solve in one go :
+    - Based on the Transition, determine flow of states i.e which dp cells to fill first to solve the ith state.
 
-- Array Description (=> good dp state) => "V.V.IMP solution given by Priyansh"
+    - BC(Base Case): Solution of the Smallest State which could be trivially solved + THINK about OUT OF BOUND CASES.
 
-- Counting Towers (=> good problem,how'd the ith problem look like, based on that we solve it, keep in mind to only solve the ith ind)
+**TIME COMPLEXITY:**
 
-- Rectangle Cutting (=> for a particular rectangle: what all can we do to reduce the problem ?)
+    -  (# states) * avg transition time of each state
 
-/******************** KEEP IN MIND ******************************/
+    - OR (total transition time)
 
-1. we should always work only on the ith ind i.e (we should be *only* be doing, what Recusion should do at the ith ind)
-    - and make recursion make on rest of the indices.
-2. 
+**GOOD PROBLEMS**
+
+    1. Know why is the code for Coin_Combination 1 and 2 different.
+    2. Couldn't solve in one go :
+
+        - Array Description (=> good dp state) => "V.V.IMP STANDARD solution given by Priyansh"
+
+        - Counting Towers (=> good problem,how'd the ith problem look like, based on that we solve it, keep in mind to only solve the ith ind)
+
+        - Rectangle Cutting (=> for a particular rectangle: what all can we do to reduce the problem ?)
+
+        - Printing Based > Money Sum
+
+        - Game Dp > Removal Game
+
+
 
