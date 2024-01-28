@@ -1,34 +1,13 @@
-- Any Number can be represented in any kind of representation.
-    eg: binary, ternary, decimal, ...
+#### Points to remember:
 
-- Every Binary Numnber can be expressed as 
+    - Every Binary Numnber can be expressed as 
     Sum (bi * (2^i))
 
-- Righmost bit is LSB which holds some value i.e righmost bit that is set
+    - Righmost bit is LSB which holds some value i.e righmost bit that is set
 
-- NOTE: num = 100000 -> then what is the binary rep of num - 1 
+    - NOTE: num = 100000 -> then what is the binary rep of num - 1 
     -> how does it fill: 1st it fills in for smaller indices: once all the indices are filled i.e 0...i all bits are set
         - then in the next number: we set the i+1th bit && 0...i = unset
-
-- ### Find Even/Odd: 
-    - `(num & 1 == 1) i.e num is odd`
-- ### unset the LSB: 
-    -`(num & (num-1))`
-- ### only keep the LSB as set bit: 
-    -`(num & ~(num-1))`
-- ### check which bit is set for an integer: 
-    `for(b = 0 to b < 32) if(num & (1 << b)) cout << "set bit" << endl;`
-- ### can move 1 to any bit location: `1<<b or 1>>b`, b: bit location
-- ### num: make bth bit set->unset, rest all same
-    *the positions that are to be kept same Xoring/Oring nums with 0, would keep them same i.e 1^0 = 1, 0^0 = 0*, 
-    *from set->unset: make 1 go to bth position && xor it with set i.e 1 of nums, bth bit = 0*
-    `solution: (num  ^ (1 << b))`
-- ### similary make the bth bit unset->set, rest all same
-    `(num | (1 << b)) OR (num ^ (1 << b))`
-    
-
-
-*-------------------------------------------------------------------------*
 
 # operations 
     - AND, OR, XOR, Left and right shift
@@ -50,12 +29,11 @@
     - Right shift:
         - right shifting by x units: eq to (original_num / 2^x)
 
-/*----------------------------------------------------------------------*/
 
 # NOTE: 
     - rather than mul or div by powers of 2, prefer <<, >> by x units: to do Num * 2^x OR Num / 2^x
 
-# TRICKS:
+# Explanation of some tricks:
 
     1. Check if a num is even or odd
         - (num & 1) == 1 -> ODD
