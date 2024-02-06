@@ -10,6 +10,9 @@ const int INF = LLONG_MAX >> 1;
 int sp_coord[500], sp_limit[500];
 int n, l, k;
 
+
+// MLE code:
+    // so space optmization might work on it.
 void solve() {
     // State: dp[x][t][r]: min time taken to go from coord x to l, such that prev speed limit is 't' i.e covering 1 km in t minutes, 'r' signs removed till now
         // by default: keep INF
