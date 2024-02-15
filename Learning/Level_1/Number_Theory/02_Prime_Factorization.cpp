@@ -55,7 +55,7 @@ void primeFactorizationPrint(int n) {
         }
     }
 
-    // now there could be a prime factor left in the product (since n is exp as product of pow(primes, a))
+    // now there could be a prime factor left in the product (since n is expressed as product of pow(primes, a))
     if (n != 1) cout << n << endl;
 }
 
