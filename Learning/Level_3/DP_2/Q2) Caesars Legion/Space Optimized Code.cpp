@@ -1,3 +1,5 @@
+// Space Optimized: bcz: optimal carrying on your required information && not maintaining not so useful information
+
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -7,59 +9,76 @@ using namespace std;
 const int MOD = 1e8;
 const int INF = LLONG_MAX >> 1;
 
-int n1, n2, k1, k2; // footmen : n1,k1 && horsemen : n2,k2
+int n1, n2, k1, k2; // footmen, horsemen, max cons footmen, max cons horsemen
 
-void solve() {
-    // state: dp[f][h][c][0] : no of ways to put 'f' footmen and 'h' horsemen more, if previously 'c' consecutive footmens are there
-    // similary for [1]: if prev 'c' consecutive horsemen are there
+vector<vector<vector<vector<int>>>> dp(101, vector<vector<vector<int>>> (101, vector<vector<int>> (11, vector<int> (2, 0))));
 
-    vector<vector<vector<vector<int>>>> dp(n1+1, vector<vector<vector<int>>> (n2+1, vector<vector<int>> (11, vector<int> (2, 0))));
+int solve() {
+    // State: dp[f][h][c][0/1]: no of MORE arrangements possible using rem footmen = f, rem horsemen = h, such that prev consecutive footmen (for 0) = c Or horsemen(for 1) = c.
 
-    // bc: when 0 more horsemen and footmen are yet to be placed
-        // for footmen i.e 0
-    // for(int c = 0; c <= k1; c++) dp[0][0][c][0] = 1;
+    // bc:
+        // when rem space to fill is 1: i.e either can fill 'f' or 'h': if can fill either of them then: no of more arrangements that can be formed is 1
 
-    //     // for horsemen i.e 1
-    // for(int c = 0; c <= k2; c++) dp[0][0][c][1] = 1;
+    // move from smaller problem to bigger problem
+    for(int f = 0; f <= n1; f++) { // rem f
+        for(int h = 0; h <= n2; h++) { // rem h
 
-    // transition for dp[f][h][c][0/1]
-    for(int f = 0; f <= n1; f++) {
-        for(int h = 0; h <= n2; h++) {
+            if(f == 0 && h == 0) continue; // bcz according to our state: we can't answer this 
 
-            for(int c = 0; c <= k1; c++) {
 
-                if(f == 0 && h == 0) dp[f][h][c][0] = 1;
-                // c consecutive footmen last present i.e 0 && c < k1
-                else if(c < k1) {
-                    // no of ways to put 'f' and 'h', if 'c' footmen are present previously
-                    int op1 = 0, op2 = 0;
-                    if(f-1 >= 0) op1 = dp[f-1][h][c+1][0];
-                    if(h-1 >= 0) op2 = dp[f][h-1][1][1];
-
-                    dp[f][h][c][0] = (op1 + op2) % MOD;
+            // bc:
+            // when we can either put anything at last posn: that is an arrangement i.e to the state we could supply 1 more arrangement
+            if(f + h == 1) {
+                for(int c = 1; c <= k1; c++) {
+                    if(c < k1) dp[f][h][c][0] = 1; // put 'f'
+                    else if(h > 0) dp[f][h][c][0] = 1; // put 'h'
                 }
-
-            }
-
-            for(int c = 0; c <= k2; c++) {
-                if(f == 0 && c == 0) dp[f][h][c][1] = 1;
-                // c consecutive horsemen last present i.e 1 && c < k2
-                else if(c < k2) {
-                    int op1 = 0, op2 = 0;
-                    if(f-1 >= 0) op1 = dp[f-1][h][1][0];
-                    if(h-1 >= 0) op2 = dp[f][h-1][c+1][1];
-
-                    dp[f][h][c][1] = (op1 + op2) % MOD;
+                for(int c = 1; c <= k2; c++) {
+                    if(c < k2) dp[f][h][c][1] = 1; // put 'h'
+                    else if(f > 0) dp[f][h][c][1] = 1; // put 'f'
                 }
             }
-        
+            else {
+
+                // c == 0: doesn't make sense: bcz else are there 'horsemens' then, So handle them in horsemen.
+                for(int c = 1; c <= k1; c++) { // for footmen: 'c' can go till k1
+                    // transition: dp[f][h][c][0]
+                        // can put 'f' or 'h': since rem f/h is > 0
+                    int arg1 = 0;
+                    if(c < k1) {
+                        // put f: since prev cons f is < k1
+                        arg1 = f-1 >= 0 ? (dp[f-1][h][c+1][0]) % MOD : 0;
+                    }
+                    // put h: since rem h > 0
+                    int arg2 = h-1 >= 0 ? (dp[f][h-1][1][1]) % MOD : 0;
+
+                    dp[f][h][c][0] = (arg1 + arg2) % MOD;
+                }
+
+                for(int c = 1; c <= k2; c++) { // horsemen: 'c' can go till k2
+                    // transition: dp[f][h][c][1]
+                        // can put 'f' or 'h'
+                    int arg1 = 0;
+                    // since 'c' cons horsemen just before
+                    if(c < k2) {
+                        // can put a 'h'
+                        arg1 = h-1 >= 0 ? (dp[f][h-1][c+1][1]) % MOD : 0;
+                    }
+                    // since f > 0: can put a 'f'
+                    int arg2 = f-1 >= 0 ?  (dp[f-1][h][1][0]) % MOD : 0;
+
+                    dp[f][h][c][1] = (arg1 + arg2) % MOD;
+                }
+            }
         }
     }
 
-    // final Subproblem
-        // State: dp[f][h][c][0/1]: no of ways to put 'f' and 'h' more, if just previously 'c' troops of type 0/1 are present
-    // int finalSubproblem = (dp[n1][n2][0][0] + dp[n1][n2][0][1]) % MOD; => both are same for c == 0
-    cout << dp[n1][n2][0][0] << endl;
+    // finalSubproblem: based on our state:
+        // dp[f][h][c][0/1]: no of MORE arr such that rem f = f, rem h = h, prev consecutive f are c (for 0) Or prev cons h are c (for 1).
+
+    int ans = (dp[n1-1][n2][1][0] + dp[n1][n2-1][1][1]) % MOD;
+
+    return ans;
 }
 
 signed main()
@@ -67,7 +86,7 @@ signed main()
     ios::sync_with_stdio(false); cin.tie(NULL);
 
     cin >> n1 >> n2 >> k1 >> k2;
-  solve();
+    cout << solve() << endl; 
 
     return 0;
 }

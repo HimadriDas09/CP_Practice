@@ -40,6 +40,7 @@
         int cnt = 0;
         while(num) {
             num = num & (num-1); // unset the lsb and update num to that num
+                // But what about the Complexity of the AND operation ??
             cnt++;
         }
         return cnt;
@@ -75,7 +76,19 @@
         return (n && !(n & (n-1)))
     } 
 
+### 13. Bitwise AND in a range: O(logN)
+    - NOTE: AND operator always reduce the values Or keep it equal. But Never increases it
 
+    - l & l+1,.....r-2 & r-1 & r => r&(r-1) : unset the rightmost set bit.
+
+    - res = r & (r-1) => whatever is the new rightmost set bit: if we AND numbers greater than res with res, new result will always be res.
+
+    - So we ignore those greater numbers and AND the rest of the smaller nmbers left in the range.
+
+    - CODE: while(left < right) {
+                right = (right & right-1);
+            }
+            return right;
 
 
 
