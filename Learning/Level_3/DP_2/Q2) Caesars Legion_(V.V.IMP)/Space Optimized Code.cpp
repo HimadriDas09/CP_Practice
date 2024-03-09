@@ -14,6 +14,24 @@ int n1, n2, k1, k2; // footmen, horsemen, max cons footmen, max cons horsemen
 vector<vector<vector<vector<int>>>> dp(101, vector<vector<vector<int>>> (101, vector<vector<int>> (11, vector<int> (2, 0))));
 
 int solve() {
+    // How did I think of the State ? 
+
+        // i.e basically State contains (minimum information we need to carry along with ourselves to solve the problem according to brute force).
+
+        // Process:
+
+        /* 
+        - totol n1+n2 troops: so total n1 + n2 places to put troops in, at each place: either place 'F' or 'H'.
+            => so might need to maintain index
+
+        - we can place 'f' or 'h' if we know we have how many 'f' or 'h' left: so maintain remaining f and h.
+            => if we know above: then we know at which index we're: so no need to maintain index.
+
+        - Suppose we're in middle of a configuration/ we're at ith ind: then we also need to know "how many consequtive 'f' or 'h' are just behind" so we need to maintain both: but it can either be of a single type.
+            => so maintain the magnitude of prev consecutive troop cnt of a single type && to know the type we can setup a 2 sized vector. 0 -> footmen, 1 -> horsemen.
+
+        */
+
     // State: dp[f][h][c][0/1]: no of MORE arrangements possible using rem footmen = f, rem horsemen = h, such that prev consecutive footmen (for 0) = c Or horsemen(for 1) = c.
 
     // bc:
