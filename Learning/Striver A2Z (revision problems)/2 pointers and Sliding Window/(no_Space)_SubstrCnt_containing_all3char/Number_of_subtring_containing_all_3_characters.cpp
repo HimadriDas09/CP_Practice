@@ -58,16 +58,14 @@ Method 2 (more optimized): STRIVER
 
 Thought Process:
 
-- At every index: how do we if a valid substring end at this index ??
+- At every index: how do we know if a valid substring end at this index ??
     ans: if prev all a,b,c has appeared.
     && how many substrings ends at ei ??: window[0..5], if smallest window containing all 3 chars and ending at ei is from [2..5] then [1,5] and [2,5] are reqd answers.
 
 
-- So figure out the smallest len substring ending at ei, containing a,b,c then we can figure out how many valid ends at ei.
+- So figure out the smallest index just that [smallest_ind...ei] has all 3 characters.
 
-- so just remember the greatest index at which a,b,c appears. len = min(all of the greatest ind)
-
-- cnt += (len+1);
+- then cnt += (smallest_ind + 1)
 
 */
 
