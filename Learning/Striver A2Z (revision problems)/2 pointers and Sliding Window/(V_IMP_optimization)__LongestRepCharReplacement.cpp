@@ -62,7 +62,7 @@ Multiple observation:
 
                 - Now with sliding of fixed sized window of len 'maxLen': do we need to update maxi ?? 
 
-                - if we exclude s[si] then either maxi rem same/ dec: (both case: invalid window(since maxlen - maxi > k): which is required to be decrease: which we won't to consider longer substring)
+                - if we exclude s[si] then either maxi rem same/ dec: (both case: invalid window(since end-st+1 - maxi > k): which is required to be decrease: which we won't to consider longer substring)
 
                 - so don't update maxi : if invalid window
 
