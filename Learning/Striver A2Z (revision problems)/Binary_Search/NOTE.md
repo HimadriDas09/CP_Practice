@@ -1,3 +1,12 @@
+```cpp
+// Something to Check in BS??
+    // when check[]: ..000001111... then is the answer always possible
+        // from the check[]: if seems like 'yes'
+    
+    // what if whenever the problem might be solved using BS && if can't solve then return -1;
+        // will the check[] still be: ...0000111..
+```
+
 1. ceil of a number is:
 ``` c++
     ceil(nums[i]/x) == (nums[i] + x - 1)/x

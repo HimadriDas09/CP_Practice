@@ -9,13 +9,23 @@ public:
         int cnt = (n1 + n2 + 1)/2;
         // there are multiple ways to place cnt no of elem in the left side -> among which one is valid configuration -> find it using binary search on (# elem present in smaller array)
         
-        // NOTE: replace references such that arr1 is always the smaller array => for non repeatitive BS code.
+        // NOTE: by default we're considering nums1 to be the smaller array && therefore applying BS on nums1
 
         if(n2 < n1) {
-            swap(nums1, nums2);
+            // replace the references such that we work on the smaller array
+            return findMedianSortedArrays(nums2, nums1);
         }
 
-        int lo = 0, hi = nums1.size(); 
+        /* 
+        'lo' is min elem to pick from arr1 for left partion of the array, 'hi' is max elem to pick from arr1 for left partition of the array.
+
+        if lo == 0 then we've to pick 'cnt' elem from arr2 BUT arr2 should've 'cnt' no of elem. if arr2.size() > cnt then we pick 'cnt' elem else we pick arr2.size() elem from arr2 i.e we pick either 0 or (cnt-arr2.size()) from arr1 i.e max of them.
+
+        similary hi = pick min(cnt, nums1.size()) from arr1 -> case when arr1 doesn't have 'cnt' elem.
+         */
+        int lo = 0 > cnt-nums2.size() ? 0: cnt-nums2.size();
+        int hi = cnt < nums1.size() ? cnt : nums1.size();
+
         double ans;
 
         while(lo <= hi) {
